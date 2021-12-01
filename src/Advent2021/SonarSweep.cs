@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Microsoft.Extensions.Logging;
 
 namespace Advent2021
@@ -15,16 +16,37 @@ namespace Advent2021
 
         public int GetDepthMeasurementIncreaseRate(List<int> depthMeasurements)
         {
+            var increases = GetIncreaseRate(depthMeasurements);
+            _logger.LogCritical("How many measurements are larger than the previous measurement? Answer: {Increases}",
+                increases);
+            return increases;
+        }
+
+        private static int GetIncreaseRate(List<int> measurements)
+        {
             var increases = 0;
-            for (var i = 1; i < depthMeasurements.Count; i++)
+            for (var i = 1; i < measurements.Count; i++)
             {
-                var depthMeasurement = depthMeasurements[i];
-                var previousDepthMeasurement = depthMeasurements[i - 1];
-                if (depthMeasurement > previousDepthMeasurement) increases++;
-                _logger.LogError("Depth Measurement: {DepthMeasurement}", depthMeasurement);
+                var measurement = measurements[i];
+                var previousMeasurement = measurements[i - 1];
+                if (measurement > previousMeasurement) increases++;
             }
 
-            _logger.LogCritical("How many measurements are larger than the previous measurement? Answer: {Increases}",
+            return increases;
+        }
+
+        public int GetSlidingWindowSums(List<int> depthMeasurements)
+        {
+            var sums = new List<int>();
+            for (var i = 0; i + 2 < depthMeasurements.Count; i++)
+            {
+                var sum = depthMeasurements[i] + depthMeasurements[i + 1] + depthMeasurements[i + 2];
+                sums.Add(sum);
+            }
+
+            var increases = GetIncreaseRate(sums);
+
+            _logger.LogCritical("How many sums are larger than the previous sum? Answer: {Sums}",
                 increases);
             return increases;
         }

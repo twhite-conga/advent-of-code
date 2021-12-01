@@ -14,6 +14,7 @@ namespace Advent2021
 
             var sonarSweep = serviceProvider.GetRequiredService<SonarSweep>();
             sonarSweep.GetDepthMeasurementIncreaseRate(Data.DepthMeasurements);
+            sonarSweep.GetSlidingWindowSums(Data.DepthMeasurements);
         }
 
         private static ServiceProvider ConfigureServices()

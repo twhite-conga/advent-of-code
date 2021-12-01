@@ -26,8 +26,7 @@ namespace Advent2021
             }
         }
 
-        public static string RawData = @"
-191
+        public static string RawData = @"191
 192
 201
 205
