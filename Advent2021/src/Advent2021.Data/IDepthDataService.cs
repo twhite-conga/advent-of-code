@@ -1,9 +1,6 @@
-using System.Collections.Generic;
+namespace Advent2021.Data;
 
-namespace Advent2021.Data
+public interface IDepthDataService
 {
-    public interface IDepthDataService
-    {
-        List<int> ParseRawData(string data);
-    }
+    List<int> ParseRawData(string data);
 }

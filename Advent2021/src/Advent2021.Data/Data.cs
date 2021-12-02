@@ -1,8 +1,8 @@
-namespace Advent2021.Data
+namespace Advent2021.Data;
+
+public static class Data
 {
-    public static class Data
-    {
-       public static string RawData = @"191
+    public const string RawData = @"191
 192
 201
 205
@@ -2002,5 +2002,4 @@ namespace Advent2021.Data
 5787
 5783
 5791";
-    }
 }
