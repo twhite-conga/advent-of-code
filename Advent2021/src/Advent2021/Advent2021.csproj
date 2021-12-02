@@ -9,4 +9,8 @@
     <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="6.0.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Advent2021.Data\Advent2021.Data.csproj" />
+  </ItemGroup>
+
 </Project>

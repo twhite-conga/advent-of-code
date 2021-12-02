@@ -4,11 +4,6 @@ using System.Linq;
 
 namespace Advent2021
 {
-    public interface IDepthDataService
-    {
-        List<int> ParseRawData(string data);
-    }
-
     public class DepthDataService : IDepthDataService
     {
         public List<int> ParseRawData(string data)
