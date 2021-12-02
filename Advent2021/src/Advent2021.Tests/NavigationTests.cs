@@ -30,4 +30,14 @@ public class NavigationTests
 
         actual.Should().Be(150);
     }
+
+    [Fact]
+    public void MultiplyHorizontalDepthPositionsWithAim_Multiplies_Final_Position()
+    {
+        var subject = new Navigation(_logger);
+
+        var actual = subject.MultiplyHorizontalDepthPositionsWithAim(FakeNavPoints);
+
+        actual.Should().Be(900);
+    }
 }

@@ -44,4 +44,34 @@ public class Navigation
         }
         return finalPosition;
     }
+
+    public int MultiplyHorizontalDepthPositionsWithAim(List<NavPoint> navPoints)
+    {
+        var finalPosition = GetFinalPositionWithAim(navPoints);
+        var answer = finalPosition.Horizontal * finalPosition.Depth;
+        _logger.LogCritical("What do you get if you multiply your final horizontal position by your final depth (with aim)? Answer: {Answer}", answer);
+        return answer;
+    }
+
+    private Position GetFinalPositionWithAim(List<NavPoint> navPoints)
+    {
+        var finalPosition = new Position { Depth = 0, Horizontal = 0, Aim = 0 };
+        foreach (var navPoint in navPoints)
+        {
+            switch (navPoint.Direction)
+            {
+                case Down:
+                    finalPosition.Aim += navPoint.Distance;
+                    break;
+                case Up:
+                    finalPosition.Aim -= navPoint.Distance;
+                    break;
+                case Forward:
+                    finalPosition.Horizontal += navPoint.Distance;
+                    finalPosition.Depth += finalPosition.Aim * navPoint.Distance;
+                    break;
+            }
+        }
+        return finalPosition;
+    }
 }

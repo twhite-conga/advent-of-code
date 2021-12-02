@@ -30,4 +30,5 @@ void Day2()
     var navPoints = rawDataService.ParseRawNavigationData(Data.RawPlottedCourseData);
     var navigation = serviceProvider.GetRequiredService<Navigation>();
     navigation.MultiplyHorizontalDepthPositions(navPoints);
+    navigation.MultiplyHorizontalDepthPositionsWithAim(navPoints);
 }
