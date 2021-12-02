@@ -1,9 +1,11 @@
-﻿using Advent2021.Data;
+﻿using System.Diagnostics.CodeAnalysis;
+using Advent2021.Data;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
 namespace Advent2021
 {
+    [ExcludeFromCodeCoverage]
     internal static class Program
     {
         private static void Main(string[] args)
