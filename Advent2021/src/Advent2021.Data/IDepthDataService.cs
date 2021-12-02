@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace Advent2021
+namespace Advent2021.Data
 {
     public interface IDepthDataService
     {

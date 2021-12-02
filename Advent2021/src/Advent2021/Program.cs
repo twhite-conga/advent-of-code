@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Advent2021.Data;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
 namespace Advent2021
@@ -10,7 +11,7 @@ namespace Advent2021
             var serviceProvider = ConfigureServices();
 
             var depthDataService = serviceProvider.GetRequiredService<IDepthDataService>();
-            var depthMeasurements = depthDataService.ParseRawData(Data.RawData);
+            var depthMeasurements = depthDataService.ParseRawData(Data.Data.RawData);
 
             var sonarSweep = serviceProvider.GetRequiredService<SonarSweep>();
             sonarSweep.GetDepthMeasurementIncreaseRate(depthMeasurements);

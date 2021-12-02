@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Advent2021
+namespace Advent2021.Data
 {
     public class DepthDataService : IDepthDataService
     {
