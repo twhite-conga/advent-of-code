@@ -1,32 +1,8 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using static System.Int32;
-
 namespace Advent2021
 {
     public static class Data
     {
-        public static List<int> DepthMeasurements
-        {
-            get
-            {
-                var dmStrings = RawData.Split(Environment.NewLine).ToList();
-                var dms = new List<int>();
-                foreach (var dmString in dmStrings)
-                {
-                    TryParse(dmString, out var dm);
-                    if (dm != null)
-                    {
-                        dms.Add(dm);
-                    }
-
-                }
-                return dms;
-            }
-        }
-
-        public static string RawData = @"191
+       public static string RawData = @"191
 192
 201
 205

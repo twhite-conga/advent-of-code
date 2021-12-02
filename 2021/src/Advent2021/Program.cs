@@ -12,15 +12,19 @@ namespace Advent2021
         {
             var serviceProvider = ConfigureServices();
 
+            var depthDataService = serviceProvider.GetRequiredService<IDepthDataService>();
+            var depthMeasurements = depthDataService.ParseRawData(Data.RawData);
+
             var sonarSweep = serviceProvider.GetRequiredService<SonarSweep>();
-            sonarSweep.GetDepthMeasurementIncreaseRate(Data.DepthMeasurements);
-            sonarSweep.GetSlidingWindowSums(Data.DepthMeasurements);
+            sonarSweep.GetDepthMeasurementIncreaseRate(depthMeasurements);
+            sonarSweep.GetSlidingWindowSums(depthMeasurements);
         }
 
         private static ServiceProvider ConfigureServices()
         {
             return new ServiceCollection()
                 .AddLogging(l => l.AddConsole())
+                .AddSingleton<IDepthDataService, DepthDataService>()
                 .AddSingleton<SonarSweep>()
                 .BuildServiceProvider();
         }
