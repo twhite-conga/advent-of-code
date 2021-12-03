@@ -6,6 +6,7 @@ var rawDataService = serviceProvider.GetRequiredService<IRawDataService>();
 
 Day1();
 Day2();
+Day3();
 
 ServiceProvider ConfigureServices()
 {
@@ -31,4 +32,9 @@ void Day2()
     var navigation = serviceProvider.GetRequiredService<Navigation>();
     navigation.MultiplyHorizontalDepthPositions(navPoints);
     navigation.MultiplyHorizontalDepthPositionsWithAim(navPoints);
+}
+
+void Day3()
+{
+
 }
