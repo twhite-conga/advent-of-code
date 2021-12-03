@@ -40,4 +40,5 @@ void Day3()
     var binaryPowerData = rawDataService.ParseRawData(Data.RawBinaryPowerData);
     var diagnosticReport = serviceProvider.GetRequiredService<DiagnosticReport>();
     diagnosticReport.GetPowerConsumption(binaryPowerData);
+    diagnosticReport.GetLifeSupportRating(binaryPowerData);
 }

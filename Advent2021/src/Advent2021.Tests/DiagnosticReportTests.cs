@@ -34,4 +34,14 @@ public class DiagnosticReportTests
 
         actual.Should().Be(198);
     }
+
+    [Fact]
+    public void GetLifeSupportRating_Returns_PowerConsumption()
+    {
+        var subject = new DiagnosticReport(_logger);
+
+        var actual = subject.GetLifeSupportRating(_fakeBinaryInputs);
+
+        actual.Should().Be(230);
+    }
 }
