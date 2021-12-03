@@ -15,6 +15,7 @@ ServiceProvider ConfigureServices()
         .AddSingleton<IRawDataService, RawDataService>()
         .AddSingleton<SonarSweep>()
         .AddSingleton<Navigation>()
+        .AddSingleton<DiagnosticReport>()
         .BuildServiceProvider();
 }
 
@@ -36,5 +37,7 @@ void Day2()
 
 void Day3()
 {
-
+    var binaryPowerData = rawDataService.ParseRawData(Data.RawBinaryPowerData);
+    var diagnosticReport = serviceProvider.GetRequiredService<DiagnosticReport>();
+    diagnosticReport.GetPowerConsumption(binaryPowerData);
 }

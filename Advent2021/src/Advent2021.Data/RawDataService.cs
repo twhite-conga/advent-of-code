@@ -4,9 +4,14 @@ namespace Advent2021.Data;
 
 public class RawDataService : IRawDataService
 {
+    public List<string> ParseRawData(string data)
+    {
+        return data.Split(Environment.NewLine).ToList();
+    }
+
     public List<int> ParseRawDepthData(string data)
     {
-        var dmStrings = data.Split(Environment.NewLine).ToList();
+        var dmStrings = ParseRawData(data);
         var dms = new List<int>();
         foreach (var dmString in dmStrings)
         {
@@ -19,7 +24,7 @@ public class RawDataService : IRawDataService
 
     public List<NavPoint> ParseRawNavigationData(string data)
     {
-        var navStrings = data.Split(Environment.NewLine).ToList();
+        var navStrings = ParseRawData(data);
         var navPoints = new List<NavPoint>();
         foreach (var navString in navStrings)
         {
