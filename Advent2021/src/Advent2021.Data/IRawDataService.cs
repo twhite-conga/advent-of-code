@@ -6,6 +6,6 @@ public interface IRawDataService
 {
     List<string> ParseRawData(string data);
     List<int> ParseRawDepthData(string data);
-
     List<NavPoint> ParseRawNavigationData(string data);
+    BingoDataSet ParseRawBingoData(string data);
 }
