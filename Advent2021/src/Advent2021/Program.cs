@@ -7,15 +7,17 @@ var rawDataService = serviceProvider.GetRequiredService<IRawDataService>();
 Day1();
 Day2();
 Day3();
+Day4();
 
 ServiceProvider ConfigureServices()
 {
     return new ServiceCollection()
         .AddLogging(l => l.AddConsole())
-        .AddSingleton<IRawDataService, RawDataService>()
-        .AddSingleton<SonarSweep>()
-        .AddSingleton<Navigation>()
-        .AddSingleton<DiagnosticReport>()
+        .AddTransient<IRawDataService, RawDataService>()
+        .AddTransient<SonarSweep>()
+        .AddTransient<Navigation>()
+        .AddTransient<DiagnosticReport>()
+        .AddTransient<BingoSubsystem>()
         .BuildServiceProvider();
 }
 
@@ -41,4 +43,11 @@ void Day3()
     var diagnosticReport = serviceProvider.GetRequiredService<DiagnosticReport>();
     diagnosticReport.GetPowerConsumption(binaryPowerData);
     diagnosticReport.GetLifeSupportRating(binaryPowerData);
+}
+
+void Day4()
+{
+    var bingoData = rawDataService.ParseRawBingoData(Data.RawBingoInput);
+    var bingoSubsystem = serviceProvider.GetRequiredService<BingoSubsystem>();
+    bingoSubsystem.CalculateWinnerScore(bingoData);
 }
