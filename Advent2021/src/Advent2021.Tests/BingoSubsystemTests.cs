@@ -18,12 +18,22 @@ public class BingoSubsystemTests
     }
 
     [Fact]
-    public void CalculateWinnerScore_Calculates_Score()
+    public void CalculateFirstWinningBoardScore_Calculates_Score()
     {
         var subject = new BingoSubsystem(_logger);
 
-        var actual = subject.CalculateWinnerScore(_fakeBingoDataSet);
+        var actual = subject.CalculateFirstWinningBoardScore(_fakeBingoDataSet);
 
         actual.Should().Be(4512);
+    }
+
+    [Fact]
+    public void CalculateLastWinningBoardScore_Calculates_Score()
+    {
+        var subject = new BingoSubsystem(_logger);
+
+        var actual = subject.CalculateLastWinningBoardScore(_fakeBingoDataSet);
+
+        actual.Should().Be(1924);
     }
 }

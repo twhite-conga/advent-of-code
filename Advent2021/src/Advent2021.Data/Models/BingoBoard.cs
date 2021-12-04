@@ -30,4 +30,6 @@ public class BingoBoard
             return columns;
         }
     }
+
+    public bool HasWon { get; set; }
 }

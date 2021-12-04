@@ -11,9 +11,29 @@ public class BingoSubsystem
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
     }
 
-    public int CalculateWinnerScore(BingoDataSet bingoDataSet)
+    public int CalculateFirstWinningBoardScore(BingoDataSet bingoDataSet)
     {
-        var (winningBoard, winningNumber) = FindWinningBoard(bingoDataSet);
+        var (key, value) = FindWinningBoards(bingoDataSet).First();
+        var winningBoardSum = CalculateWinningBoardSum(value);
+
+        var answer = winningBoardSum * key;
+        _logger.LogCritical("What will your final score be if you choose that board? Answer: {Answer}", answer);
+        return answer;
+    }
+
+    public int CalculateLastWinningBoardScore(BingoDataSet bingoDataSet)
+    {
+        var (key, value) = FindWinningBoards(bingoDataSet).Last();
+        var winningBoardSum = CalculateWinningBoardSum(value);
+
+        var answer = winningBoardSum * key;
+        _logger.LogCritical("Once it wins, what would its final score be (last winning board)? Answer: {Answer}",
+            answer);
+        return answer;
+    }
+
+    private static int CalculateWinningBoardSum(BingoBoard winningBoard)
+    {
         var winningBoardSum = 0;
         foreach (var winningBoardSquare in winningBoard.Rows)
         {
@@ -22,17 +42,17 @@ public class BingoSubsystem
                 .Sum(bingoSquare => bingoSquare.Value);
         }
 
-        var answer = winningBoardSum * winningNumber;
-        _logger.LogCritical("What will your final score be if you choose that board? Answer: {Answer}", answer);
-        return answer;
+        return winningBoardSum;
     }
 
-    private (BingoBoard winningBoard, int winningNumber) FindWinningBoard(BingoDataSet bingoDataSet)
+    private List<KeyValuePair<int, BingoBoard>> FindWinningBoards(BingoDataSet bingoDataSet)
     {
+        var winningBoardMap = new List<KeyValuePair<int, BingoBoard>>();
         foreach (var drawing in bingoDataSet.Drawings)
         {
             foreach (var bingoBoard in bingoDataSet.Boards)
             {
+                if (bingoBoard.HasWon) continue;
                 foreach (var row in bingoBoard.Rows)
                 {
                     foreach (var bingoSquare in row)
@@ -44,14 +64,13 @@ public class BingoSubsystem
                     }
                 }
 
-                if (HasBoardWon(bingoBoard))
-                {
-                    return (bingoBoard, drawing);
-                }
+                if (!HasBoardWon(bingoBoard)) continue;
+                bingoBoard.HasWon = true;
+                winningBoardMap.Add(new KeyValuePair<int, BingoBoard>(drawing, bingoBoard));
             }
         }
 
-        throw new Exception("No board won from drawing set");
+        return winningBoardMap;
     }
 
     private bool HasBoardWon(BingoBoard bingoBoard)

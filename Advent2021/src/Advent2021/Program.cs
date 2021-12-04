@@ -47,7 +47,7 @@ void Day3()
 
 void Day4()
 {
-    var bingoData = rawDataService.ParseRawBingoData(Data.RawBingoInput);
     var bingoSubsystem = serviceProvider.GetRequiredService<BingoSubsystem>();
-    bingoSubsystem.CalculateWinnerScore(bingoData);
+    bingoSubsystem.CalculateFirstWinningBoardScore(rawDataService.ParseRawBingoData(Data.RawBingoInput));
+    bingoSubsystem.CalculateLastWinningBoardScore(rawDataService.ParseRawBingoData(Data.RawBingoInput));
 }
