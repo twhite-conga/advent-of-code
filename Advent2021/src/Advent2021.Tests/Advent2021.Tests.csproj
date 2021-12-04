@@ -22,6 +22,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\Advent2021.Data.Tests\Advent2021.Data.Tests.csproj" />
       <ProjectReference Include="..\Advent2021\Advent2021.csproj" />
     </ItemGroup>
 

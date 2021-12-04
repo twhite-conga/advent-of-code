@@ -13,8 +13,23 @@ public class BingoSubsystem
 
     public int CalculateWinnerScore(BingoDataSet bingoDataSet)
     {
-        int answer = 0;
+        var (winningBoard, winningNumber) = FindWinningBoard(bingoDataSet);
+        var winningBoardSum = 0;
+        foreach (var winningBoardRow in winningBoard.Rows)
+        {
+            winningBoardSum += winningBoardRow
+                .Where(bingoSquare => !bingoSquare.IsHit)
+                .Sum(bingoSquare => bingoSquare.Value);
+        }
+        var answer = winningBoardSum * winningNumber;
         _logger.LogCritical("What will your final score be if you choose that board? Answer: {Answer}", answer);
         return answer;
     }
+
+    private (BingoBoard winningBoard, int winningNumber) FindWinningBoard(BingoDataSet bingoDataSet)
+    {
+        throw new NotImplementedException();
+    }
+
+    private
 }
