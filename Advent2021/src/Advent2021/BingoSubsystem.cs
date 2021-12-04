@@ -30,6 +30,4 @@ public class BingoSubsystem
     {
         throw new NotImplementedException();
     }
-
-    private
 }
