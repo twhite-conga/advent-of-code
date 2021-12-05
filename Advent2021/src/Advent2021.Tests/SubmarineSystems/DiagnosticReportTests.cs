@@ -1,4 +1,6 @@
-namespace Advent2021.Tests;
+using Advent2021.SubmarineSystems;
+
+namespace Advent2021.Tests.SubmarineSystems;
 
 public class DiagnosticReportTests
 {

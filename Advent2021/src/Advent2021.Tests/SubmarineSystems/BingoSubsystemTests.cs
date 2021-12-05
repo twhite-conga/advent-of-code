@@ -1,8 +1,9 @@
 using Advent2021.Data;
 using Advent2021.Data.Models;
 using Advent2021.Data.Tests;
+using Advent2021.SubmarineSystems;
 
-namespace Advent2021.Tests;
+namespace Advent2021.Tests.SubmarineSystems;
 
 public class BingoSubsystemTests
 {

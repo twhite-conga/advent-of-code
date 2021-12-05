@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Advent2021.SubmarineSystems;
+using Microsoft.Extensions.DependencyInjection;
 
 var serviceProvider = ConfigureServices();
 
@@ -8,6 +9,7 @@ Day1();
 Day2();
 Day3();
 Day4();
+Day5();
 
 ServiceProvider ConfigureServices()
 {
@@ -50,4 +52,9 @@ void Day4()
     var bingoSubsystem = serviceProvider.GetRequiredService<BingoSubsystem>();
     bingoSubsystem.CalculateFirstWinningBoardScore(rawDataService.ParseRawBingoData(Data.RawBingoInput));
     bingoSubsystem.CalculateLastWinningBoardScore(rawDataService.ParseRawBingoData(Data.RawBingoInput));
+}
+
+void Day5()
+{
+
 }

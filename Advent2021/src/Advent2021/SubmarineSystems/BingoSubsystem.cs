@@ -1,6 +1,6 @@
 using Advent2021.Data.Models;
 
-namespace Advent2021;
+namespace Advent2021.SubmarineSystems;
 
 public class BingoSubsystem
 {

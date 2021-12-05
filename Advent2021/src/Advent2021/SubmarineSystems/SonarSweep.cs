@@ -1,4 +1,4 @@
-namespace Advent2021;
+namespace Advent2021.SubmarineSystems;
 
 public class SonarSweep
 {
