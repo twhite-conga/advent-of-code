@@ -80,7 +80,7 @@ public class HydrothermalVentScanner
             var length = endX - startX;
             var yDirection = coordinateLine.Start.Y < coordinateLine.End.Y ? 1 : -1;
             var xDirection = coordinateLine.Start.X < coordinateLine.End.X ? 1 : -1;
-            for (var i = 0; i < length; i++)
+            for (var i = 0; i <= length; i++)
             {
                 coordinates.Add(new Coordinate
                     { X = coordinateLine.Start.X + xDirection * i, Y = coordinateLine.Start.Y + yDirection * i });
