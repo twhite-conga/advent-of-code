@@ -20,6 +20,7 @@ ServiceProvider ConfigureServices()
         .AddTransient<Navigation>()
         .AddTransient<DiagnosticReport>()
         .AddTransient<BingoSubsystem>()
+        .AddTransient<HydrothermalVentScanner>()
         .BuildServiceProvider();
 }
 
@@ -56,5 +57,8 @@ void Day4()
 
 void Day5()
 {
-
+    var hydrothermalVentScanner = serviceProvider.GetRequiredService<HydrothermalVentScanner>();
+    var data = rawDataService.ParseRawHydrothermicData(Data.RawVentData);
+    hydrothermalVentScanner.ScanForDangerousOverlaps(data);
+    hydrothermalVentScanner.ScanForDangerousOverlapsWithDiagonal(data);
 }

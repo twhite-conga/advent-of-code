@@ -19,12 +19,22 @@ public class HydrothermalVentScanner
         return answer;
     }
 
-    private static Dictionary<Coordinate, int> GetOverlappingCoordinates(List<CoordinateLine> coordinateLines)
+    public int ScanForDangerousOverlapsWithDiagonal(List<CoordinateLine> coordinateLines)
+    {
+        var coordinateOverlapMap = GetOverlappingCoordinates(coordinateLines, true);
+        var answer = coordinateOverlapMap.Count(c => c.Value > 1);
+        _logger.LogCritical("At how many points do at least two lines overlap (with diagonal)? Answer: {Answer}",
+            answer);
+        return answer;
+    }
+
+    private static Dictionary<Coordinate, int> GetOverlappingCoordinates(List<CoordinateLine> coordinateLines,
+        bool inclueDiagonal = false)
     {
         var coordinateOverlapMap = new Dictionary<Coordinate, int>();
         foreach (var coordinateLine in coordinateLines)
         {
-            var lineCoordinates = GetLineCoordinates(coordinateLine);
+            var lineCoordinates = GetLineCoordinates(coordinateLine, inclueDiagonal);
             foreach (var coordinate in lineCoordinates)
             {
                 var key = coordinateOverlapMap.Keys.FirstOrDefault(c => c.X == coordinate.X && c.Y == coordinate.Y);
@@ -42,7 +52,7 @@ public class HydrothermalVentScanner
         return coordinateOverlapMap;
     }
 
-    private static List<Coordinate> GetLineCoordinates(CoordinateLine coordinateLine)
+    private static List<Coordinate> GetLineCoordinates(CoordinateLine coordinateLine, bool inclueDiagonal = false)
     {
         var coordinates = new List<Coordinate>();
         if (coordinateLine.Start.X == coordinateLine.End.X)
@@ -61,6 +71,19 @@ public class HydrothermalVentScanner
             for (var i = start; i <= end; i++)
             {
                 coordinates.Add(new Coordinate { X = i, Y = coordinateLine.Start.Y });
+            }
+        }
+        else if (inclueDiagonal)
+        {
+            var startX = Math.Min(coordinateLine.Start.X, coordinateLine.End.X);
+            var endX = Math.Max(coordinateLine.Start.X, coordinateLine.End.X);
+            var length = endX - startX;
+            var yDirection = coordinateLine.Start.Y < coordinateLine.End.Y ? 1 : -1;
+            var xDirection = coordinateLine.Start.X < coordinateLine.End.X ? 1 : -1;
+            for (var i = 0; i < length; i++)
+            {
+                coordinates.Add(new Coordinate
+                    { X = coordinateLine.Start.X + xDirection * i, Y = coordinateLine.Start.Y + yDirection * i });
             }
         }
 

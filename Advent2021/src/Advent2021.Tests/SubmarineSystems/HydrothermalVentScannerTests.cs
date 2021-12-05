@@ -27,4 +27,14 @@ public class HydrothermalVentScannerTests
 
         actual.Should().Be(5);
     }
+
+    [Fact]
+    public void ScanForDangerousOverlapsWithDiagonal_Scans_For_Overlaps()
+    {
+        var subject = new HydrothermalVentScanner(_logger);
+
+        var actual = subject.ScanForDangerousOverlapsWithDiagonal(_fakeCoordinateLines);
+
+        actual.Should().Be(12);
+    }
 }
