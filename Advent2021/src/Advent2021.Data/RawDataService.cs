@@ -49,6 +49,7 @@ public class RawDataService : IRawDataService
         {
             bingoDataSet.Drawings.Add(int.Parse(drawing));
         }
+
         bingoStrings.RemoveRange(0, 2);
 
         while (bingoStrings.Count > 0)
@@ -68,13 +69,36 @@ public class RawDataService : IRawDataService
                 var rowSquares = line.Split(" ").ToList().Where(rs => rs != "");
                 foreach (var rowSquareValue in rowSquares)
                 {
-                    row.Add(new BingoSquare{Value = int.Parse(rowSquareValue)});
+                    row.Add(new BingoSquare { Value = int.Parse(rowSquareValue) });
                 }
+
                 board.Rows.Add(row);
             }
+
             bingoStrings.RemoveRange(0, removeCount);
         }
 
         return bingoDataSet;
+    }
+
+    public List<CoordinateLine> ParseRawHydrothermicData(string data)
+    {
+        var coordinateStrings = ParseRawData(data);
+        var coordinateLines = new List<CoordinateLine>();
+        foreach (var coordinateString in coordinateStrings)
+        {
+            var coordinatePair = coordinateString.Split("->");
+            var coordinates = coordinatePair.Select(cp => cp.Split(",")).Select(cpStr =>
+                new Coordinate { X = int.Parse(cpStr.First()), Y = int.Parse(cpStr.Last()) }).ToList();
+
+            var coordinateLine = new CoordinateLine
+            {
+                Start = coordinates.First(),
+                End = coordinates.Last()
+            };
+            coordinateLines.Add(coordinateLine);
+        }
+
+        return coordinateLines;
     }
 }

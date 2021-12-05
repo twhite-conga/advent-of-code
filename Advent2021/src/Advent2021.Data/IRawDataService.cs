@@ -8,4 +8,5 @@ public interface IRawDataService
     List<int> ParseRawDepthData(string data);
     List<NavPoint> ParseRawNavigationData(string data);
     BingoDataSet ParseRawBingoData(string data);
+    List<CoordinateLine> ParseRawHydrothermicData(string data);
 }

@@ -22,6 +22,17 @@ public class RawDataServiceTests
 22 11 13  6  5
  2  0 12  3  7";
 
+    public const string FakeHydrothermicVentsData = @"0,9 -> 5,9
+8,0 -> 0,8
+9,4 -> 3,4
+2,2 -> 2,1
+7,0 -> 7,4
+6,4 -> 2,0
+0,9 -> 2,9
+3,4 -> 1,4
+0,0 -> 8,8
+5,5 -> 8,2";
+
    [Fact]
    public void ParseBingoBoard_Parses_Bingo_Board()
    {
@@ -33,5 +44,16 @@ public class RawDataServiceTests
        actual.Drawings.Last().Should().Be(1);
        actual.Boards.First().Rows.First().First().Value.Should().Be(22);
        actual.Boards.Last().Rows.Last().Last().Value.Should().Be(7);
+   }
+
+   [Fact]
+   public void ParseRawHydrothermicData_Parses_Data()
+   {
+       var subject = new RawDataService();
+
+       var actual = subject.ParseRawHydrothermicData(FakeHydrothermicVentsData);
+
+       actual.First().Start.X.Should().Be(0);
+       actual.Last().End.Y.Should().Be(2);
    }
 }
