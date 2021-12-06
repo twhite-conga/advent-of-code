@@ -19,7 +19,7 @@ public class LanternFishCalculatorTests
     [Theory]
     [InlineData(18, 26)]
     [InlineData(80, 5934)]
-    // [InlineData(256, 26984457539)]
+    [InlineData(256, 26984457539)]
     public void CalculatePopulation_Calculates_Population(int growthDays, long expectedPopulation)
     {
         var subject = new LanternFishCalculator(_logger);

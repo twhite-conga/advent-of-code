@@ -13,37 +13,42 @@ public class LanternFishCalculator
 
     public long CalculatePopulation(int growthDays, List<LanternFish> population)
     {
-        population = GrowPopulation(growthDays, population);
-        var answer = population.Count;
+        var ageCounts = SortAges(population);
+        ageCounts = GrowPopulation(growthDays, ageCounts);
+        long answer = ageCounts.Sum();
         _logger.LogCritical("How many lanternfish would there be after {GrowthDays} days? Answer: {Answer}", growthDays,
             answer);
         return answer;
     }
 
-    public List<LanternFish> GrowPopulation(int growthDays, List<LanternFish> population)
+    private long[] GrowPopulation(int growthDays, long[] ageCounts)
     {
         for (var i = 0; i < growthDays; i++)
         {
-            var babyFishes = new List<LanternFish>();
-            foreach (var fish in population)
-            {
-                var itsAGirl = UpdateFish(fish);
-                if (itsAGirl) babyFishes.Add(new LanternFish());
-            }
-            population = population.Concat(babyFishes).ToList();
+            var mamas = ageCounts[0];
+            LeftShiftArray(ageCounts, 1);
+            ageCounts[6] += mamas;
         }
 
-        return population;
+        return ageCounts;
     }
 
-    private bool UpdateFish(LanternFish fish)
+    public long[] SortAges(List<LanternFish> population)
     {
-        if (fish.GestationDaysLeft == 0)
+        var ageCounts = new long[9] { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+        for (var i = 0; i < ageCounts.Length; i++)
         {
-            fish.GestationDaysLeft = 6;
-            return true;
+            ageCounts[i] = population.Count(f => f.GestationDaysLeft == i);
         }
-        fish.GestationDaysLeft--;
-        return false;
+        return ageCounts;
+    }
+
+    public static void LeftShiftArray<T>(T[] arr, int shift)
+    {
+        shift %= arr.Length;
+        var buffer = new T[shift];
+        Array.Copy(arr, buffer, shift);
+        Array.Copy(arr, shift, arr, 0, arr.Length - shift);
+        Array.Copy(buffer, 0, arr, arr.Length - shift, shift);
     }
 }
