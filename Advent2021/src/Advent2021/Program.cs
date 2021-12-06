@@ -5,11 +5,11 @@ var serviceProvider = ConfigureServices();
 
 var rawDataService = serviceProvider.GetRequiredService<IRawDataService>();
 
-Day1();
-Day2();
-Day3();
-Day4();
-Day5();
+// Day1();
+// Day2();
+// Day3();
+// Day4();
+// Day5();
 
 ServiceProvider ConfigureServices()
 {
@@ -61,4 +61,9 @@ void Day5()
     var data = rawDataService.ParseRawHydrothermicData(Data.RawVentData);
     hydrothermalVentScanner.ScanForDangerousOverlaps(data);
     hydrothermalVentScanner.ScanForDangerousOverlapsWithDiagonal(data);
+}
+
+void Day6()
+{
+
 }
