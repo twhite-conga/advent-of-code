@@ -1,5 +1,7 @@
 ﻿using Advent2021.SubmarineSystems;
 using Microsoft.Extensions.DependencyInjection;
+using Advent2021.Data.LanternFish;
+using Data = Advent2021.Data.Data;
 
 var serviceProvider = ConfigureServices();
 
@@ -10,6 +12,7 @@ var rawDataService = serviceProvider.GetRequiredService<IRawDataService>();
 // Day3();
 // Day4();
 // Day5();
+Day6();
 
 ServiceProvider ConfigureServices()
 {
@@ -21,6 +24,8 @@ ServiceProvider ConfigureServices()
         .AddTransient<DiagnosticReport>()
         .AddTransient<BingoSubsystem>()
         .AddTransient<HydrothermalVentScanner>()
+        .AddTransient<ILanternFishRepository, LanternFishRepository>()
+        .AddTransient<LanternFishCalculator>()
         .BuildServiceProvider();
 }
 
@@ -65,5 +70,9 @@ void Day5()
 
 void Day6()
 {
-
+    var lanternFishCalculator = serviceProvider.GetRequiredService<LanternFishCalculator>();
+    var repository = serviceProvider.GetRequiredService<ILanternFishRepository>();
+    var data = repository.GetAll(Advent2021.Data.LanternFish.Data.RawLanternFishStateData);
+    lanternFishCalculator.CalculatePopulation(80, data);
+    lanternFishCalculator.CalculatePopulation(256, data);
 }
