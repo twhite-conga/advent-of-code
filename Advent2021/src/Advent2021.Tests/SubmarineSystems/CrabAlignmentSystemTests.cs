@@ -26,4 +26,14 @@ public class CrabAlignmentSystemTests
 
         actual.Should().Be(37);
     }
+
+    [Fact]
+    public void GetCheapestAlignmentIncreasingFuelCost_Returns_Cost()
+    {
+        var subject = new CrabAlignmentSystem(_logger);
+
+        var actual = subject.GetCheapestAlignmentIncreasingFuelCost(_fakeCrabs);
+
+        actual.Should().Be(168);
+    }
 }
