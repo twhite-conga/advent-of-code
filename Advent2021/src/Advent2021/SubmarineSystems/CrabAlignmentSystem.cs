@@ -11,7 +11,7 @@ public class CrabAlignmentSystem
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
     }
 
-    public int GetCheapestAlignmentFuelCost(List<Crab> crabs)
+    public int GetCheapestAlignmentFuelCost(List<int> positions)
     {
         var answer = 0;
         _logger.LogCritical("How much fuel must they spend to align to that position? Answer: {Answer}", answer);

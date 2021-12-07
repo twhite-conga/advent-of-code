@@ -11,9 +11,9 @@ public class CrabRepositoryTests
     {
         var subject = new CrabRepository();
 
-        var actual = subject.ParseCrabs(FakeCrabPositions);
+        var actual = subject.ParsePositions(FakeCrabPositions);
 
-        actual.First().HorizontalPosition.Should().Be(16);
-        actual.Last().HorizontalPosition.Should().Be(14);
+        actual.First().Should().Be(16);
+        actual.Last().Should().Be(14);
     }
 }

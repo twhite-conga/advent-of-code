@@ -2,5 +2,5 @@ namespace Advent2021.Data.Crabs;
 
 public interface ICrabRepository
 {
-    List<Crab> ParseCrabs(string data);
+    List<int> ParsePositions(string data);
 }

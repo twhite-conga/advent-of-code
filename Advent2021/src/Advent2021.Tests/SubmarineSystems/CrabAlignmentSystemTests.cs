@@ -8,13 +8,13 @@ public class CrabAlignmentSystemTests
 {
     private readonly ILogger<CrabAlignmentSystem> _logger;
 
-    private readonly List<Crab> _fakeCrabs;
+    private readonly List<int> _fakeCrabs;
 
     public CrabAlignmentSystemTests()
     {
         _logger = Substitute.For<ILogger<CrabAlignmentSystem>>();
         var respository = new CrabRepository();
-        _fakeCrabs = respository.ParseCrabs(CrabRepositoryTests.FakeCrabPositions);
+        _fakeCrabs = respository.ParsePositions(CrabRepositoryTests.FakeCrabPositions);
     }
 
     [Fact]
