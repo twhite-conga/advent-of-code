@@ -13,8 +13,26 @@ public class CrabAlignmentSystem
 
     public int GetCheapestAlignmentFuelCost(List<int> positions)
     {
-        var answer = 0;
+        var costs = GetAlignmentCost(positions);
+        var answer = costs.Min();
         _logger.LogCritical("How much fuel must they spend to align to that position? Answer: {Answer}", answer);
         return answer;
+    }
+
+    private static IEnumerable<int> GetAlignmentCost(IReadOnlyCollection<int> positions)
+    {
+        var max = positions.Max();
+        var fuelCosts = new List<int>();
+        for (var i = 1; i <= max; i++)
+        {
+            fuelCosts.Add(GetCost(i, positions));
+        }
+
+        return fuelCosts;
+    }
+
+    private static int GetCost(int i, IEnumerable<int> positions)
+    {
+        return positions.Sum(position => Math.Abs(position - i));
     }
 }

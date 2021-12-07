@@ -86,5 +86,6 @@ void Day7()
     var repository = serviceProvider.GetRequiredService<ICrabRepository>();
     var data = repository.ParsePositions(Advent2021.Data.Crabs.Data.RawCrabPostions);
     var alignmentSystem = serviceProvider.GetRequiredService<CrabAlignmentSystem>();
+    alignmentSystem.GetCheapestAlignmentFuelCost(data);
 }
 
