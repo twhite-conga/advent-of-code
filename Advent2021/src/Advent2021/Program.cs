@@ -1,4 +1,5 @@
-﻿using Advent2021.SubmarineSystems;
+﻿using Advent2021.Data.Crabs;
+using Advent2021.SubmarineSystems;
 using Microsoft.Extensions.DependencyInjection;
 using Advent2021.Data.LanternFish;
 using Data = Advent2021.Data.Data;
@@ -7,12 +8,13 @@ var serviceProvider = ConfigureServices();
 
 var rawDataService = serviceProvider.GetRequiredService<IRawDataService>();
 
-// Day1();
-// Day2();
-// Day3();
-// Day4();
+Day1();
+Day2();
+Day3();
+Day4();
 // Day5();
 Day6();
+Day7();
 
 ServiceProvider ConfigureServices()
 {
@@ -26,6 +28,8 @@ ServiceProvider ConfigureServices()
         .AddTransient<HydrothermalVentScanner>()
         .AddTransient<ILanternFishRepository, LanternFishRepository>()
         .AddTransient<LanternFishCalculator>()
+        .AddTransient<ICrabRepository, CrabRepository>()
+        .AddTransient<CrabAlignmentSystem>()
         .BuildServiceProvider();
 }
 
@@ -76,3 +80,11 @@ void Day6()
     lanternFishCalculator.CalculatePopulation(80, data);
     lanternFishCalculator.CalculatePopulation(256, data);
 }
+
+void Day7()
+{
+    var repository = serviceProvider.GetRequiredService<ICrabRepository>();
+    var data = repository.ParseCrabs(Advent2021.Data.Crabs.Data.RawCrabPostions);
+    var alignmentSystem = serviceProvider.GetRequiredService<CrabAlignmentSystem>();
+}
+
