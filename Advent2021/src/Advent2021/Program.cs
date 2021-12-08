@@ -2,6 +2,7 @@
 using Advent2021.SubmarineSystems;
 using Microsoft.Extensions.DependencyInjection;
 using Advent2021.Data.LanternFish;
+using Advent2021.Data.SensorFix;
 using Data = Advent2021.Data.Data;
 
 var serviceProvider = ConfigureServices();
@@ -15,6 +16,7 @@ Day4();
 // Day5();
 Day6();
 Day7();
+Day8();
 
 ServiceProvider ConfigureServices()
 {
@@ -30,6 +32,7 @@ ServiceProvider ConfigureServices()
         .AddTransient<LanternFishCalculator>()
         .AddTransient<ICrabRepository, CrabRepository>()
         .AddTransient<CrabAlignmentSystem>()
+        .AddTransient<ISensorFixRepository, SensorFixRepository>()
         .BuildServiceProvider();
 }
 
@@ -88,5 +91,11 @@ void Day7()
     var alignmentSystem = serviceProvider.GetRequiredService<CrabAlignmentSystem>();
     alignmentSystem.GetCheapestAlignmentFuelCost(data);
     alignmentSystem.GetCheapestAlignmentIncreasingFuelCost(data);
+}
+
+void Day8()
+{
+    var repository = serviceProvider.GetRequiredService<ISensorFixRepository>();
+    var data = repository.ParseReadings(Advent2021.Data.SensorFix.Data.RawSensorData);
 }
 
