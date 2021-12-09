@@ -100,5 +100,6 @@ void Day8()
     var data = repository.ParseReadings(Advent2021.Data.SensorFix.Data.RawSensorData);
     var sensorFix = serviceProvider.GetRequiredService<SensorFix>();
     sensorFix.CheckForKnowDigits(data);
+    sensorFix.AddAllOutputValues(data);
 }
 
