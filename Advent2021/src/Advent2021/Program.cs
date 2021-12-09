@@ -1,4 +1,5 @@
 ﻿using Advent2021.Data.Crabs;
+using Advent2021.Data.HeighMap;
 using Advent2021.SubmarineSystems;
 using Microsoft.Extensions.DependencyInjection;
 using Advent2021.Data.LanternFish;
@@ -34,6 +35,8 @@ ServiceProvider ConfigureServices()
         .AddTransient<CrabAlignmentSystem>()
         .AddTransient<ISensorFixRepository, SensorFixRepository>()
         .AddTransient<SensorFix>()
+        .AddTransient<IHeightMapRepository, HeightMapRepository>()
+        .AddTransient<HeightMapSensor>()
         .BuildServiceProvider();
 }
 
@@ -103,3 +106,10 @@ void Day8()
     sensorFix.AddAllOutputValues(data);
 }
 
+void Day9()
+{
+    var repository = serviceProvider.GetRequiredService<IHeightMapRepository>();
+    var data = repository.ParseHeightMap(Advent2021.Data.HeighMap.Data.RawHeighMapData);
+    var heightMapSensor = serviceProvider.GetRequiredService<HeightMapSensor>();
+
+}
