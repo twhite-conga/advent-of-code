@@ -33,6 +33,7 @@ ServiceProvider ConfigureServices()
         .AddTransient<ICrabRepository, CrabRepository>()
         .AddTransient<CrabAlignmentSystem>()
         .AddTransient<ISensorFixRepository, SensorFixRepository>()
+        .AddTransient<SensorFix>()
         .BuildServiceProvider();
 }
 
@@ -97,5 +98,7 @@ void Day8()
 {
     var repository = serviceProvider.GetRequiredService<ISensorFixRepository>();
     var data = repository.ParseReadings(Advent2021.Data.SensorFix.Data.RawSensorData);
+    var sensorFix = serviceProvider.GetRequiredService<SensorFix>();
+    sensorFix.CheckForKnowDigits(data);
 }
 
