@@ -113,4 +113,5 @@ void Day9()
     var data = repository.ParseHeightMap(Advent2021.Data.HeighMap.Data.RawHeighMapData);
     var heightMapSensor = serviceProvider.GetRequiredService<HeightMapSensor>();
     heightMapSensor.SumLowPointRiskLevels(data);
+    heightMapSensor.MultiplyThreeLargestBasins(data);
 }

@@ -15,7 +15,7 @@ public class LanternFishCalculator
     {
         var ageCounts = SortAges(population);
         ageCounts = GrowPopulation(growthDays, ageCounts);
-        long answer = ageCounts.Sum();
+        var answer = ageCounts.Sum();
         _logger.LogCritical("How many lanternfish would there be after {GrowthDays} days? Answer: {Answer}", growthDays,
             answer);
         return answer;

@@ -25,4 +25,14 @@ public class HeightMapSensorTests
 
         actual.Should().Be(15);
     }
+
+    [Fact]
+    public void MultiplyThreeLargestBasins_Multiplies_Basins()
+    {
+        var subject = new HeightMapSensor(_logger);
+
+        var actual = subject.MultiplyThreeLargestBasins(_fakeHeightMap);
+
+        actual.Should().Be(1134);
+    }
 }

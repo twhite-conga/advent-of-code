@@ -10,7 +10,7 @@ public class HeightMapRepository : IHeightMapRepository
         {
             var row = rows[i];
             heightMap[i] = new int[row.Length];
-            for (int j = 0; j < row.Length; j++)
+            for (var j = 0; j < row.Length; j++)
             {
                 heightMap[i][j] = int.Parse(row[j].ToString());
             }
