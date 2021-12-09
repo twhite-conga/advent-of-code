@@ -18,6 +18,7 @@ Day4();
 Day6();
 Day7();
 Day8();
+Day9();
 
 ServiceProvider ConfigureServices()
 {
@@ -111,5 +112,5 @@ void Day9()
     var repository = serviceProvider.GetRequiredService<IHeightMapRepository>();
     var data = repository.ParseHeightMap(Advent2021.Data.HeighMap.Data.RawHeighMapData);
     var heightMapSensor = serviceProvider.GetRequiredService<HeightMapSensor>();
-
+    heightMapSensor.SumLowPointRiskLevels(data);
 }
