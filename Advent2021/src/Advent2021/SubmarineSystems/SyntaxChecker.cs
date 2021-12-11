@@ -1,4 +1,4 @@
-using System.Text.RegularExpressions;
+using System.Text;
 
 namespace Advent2021.SubmarineSystems;
 
@@ -20,19 +20,54 @@ public class SyntaxChecker
         return answer;
     }
 
+    private long ScorePart2(string s)
+    {
+        var values = new Dictionary<char, long> { { '}', 3 }, { ')', 1 }, { '>', 4 }, { ']', 2 } };
+        return s.Aggregate(0, (long a, char b) => a * 5 + values[b]);
+    }
+
+    public long GetAutoCompleteScore(List<string> syntaxData)
+    {
+        var scores = syntaxData.Select(CompleteLine)
+            .Where(l => l != "error")
+            .Select(ScorePart2)
+            .OrderBy(s => s).ToList();
+        var answer = scores[scores.Count / 2];
+        _logger.LogCritical("What is the middle score? Answer: {Answer}", answer);
+        return answer;
+    }
+
+    private string CompleteLine(string line)
+    {
+        var matches = new Dictionary<char, char> { { '{', '}' }, { '(', ')' }, { '<', '>' }, { '[', ']' } };
+        var closers = new StringBuilder();
+        try
+        {
+            var stack = ParseLine(line);
+            while (stack.Count > 0)
+                closers.Append(matches[stack.Pop()]);
+        }
+        catch (Exception)
+        {
+            return "error";
+        }
+
+        return closers.ToString();
+    }
+
     public List<char> GetCorruptedLines(List<string> syntaxData)
     {
         var corruptedChars = new List<char>();
         foreach (var line in syntaxData)
         {
-            var character = ParseLine(line);
+            var character = CheckForCorruptedLine(line);
             corruptedChars.Add(character);
         }
 
         return corruptedChars;
     }
 
-    private char ParseLine(string line)
+    private Stack<char> ParseLine(string line)
     {
         var matches = new Dictionary<char, char> { { '}', '{' }, { ')', '(' }, { '>', '<' }, { ']', '[' } };
         var stack = new Stack<char>();
@@ -45,10 +80,23 @@ public class SyntaxChecker
             {
                 var p = stack.Pop();
                 if (matches[c] != p)
-                    return c;
+                    throw new Exception(c.ToString());
             }
         }
 
-        return '\0';
+        return stack;
+    }
+
+    private char CheckForCorruptedLine(string line)
+    {
+        try
+        {
+            ParseLine(line);
+            return '\0';
+        }
+        catch (Exception ex)
+        {
+            return ex.Message[0];
+        }
     }
 }

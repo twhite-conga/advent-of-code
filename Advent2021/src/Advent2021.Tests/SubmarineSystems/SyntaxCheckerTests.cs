@@ -36,4 +36,14 @@ public class SyntaxCheckerTests
 
         actual.Should().Be(26397);
     }
+
+    [Fact]
+    public void GetAutoCompleteScore_Returns_Score()
+    {
+        var subject = new SyntaxChecker(_logger);
+
+        var actual = subject.GetAutoCompleteScore(FakeSyntaxData);
+
+        actual.Should().Be(288957);
+    }
 }

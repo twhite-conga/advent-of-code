@@ -128,6 +128,7 @@ void Day10()
     var data = repository.ParseRawData(Data.RawNavigationSubsystemSyntaxData);
     var sytaxChecker = serviceProvider.GetRequiredService<SyntaxChecker>();
     sytaxChecker.GetSyntaxErrorScore(data);
+    sytaxChecker.GetAutoCompleteScore(data);
 }
 
 void Day11()
