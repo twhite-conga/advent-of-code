@@ -20,7 +20,7 @@ Day6();
 Day7();
 Day8();
 Day9();
-
+Day10();
 Day11();
 
 ServiceProvider ConfigureServices()
@@ -43,6 +43,7 @@ ServiceProvider ConfigureServices()
         .AddTransient<HeightMapSensor>()
         .AddTransient<IOctopusEnergyRepository, OctopusEnergyRepository>()
         .AddTransient<EnergyMonitor>()
+        .AddTransient<SyntaxChecker>()
         .BuildServiceProvider();
 }
 
@@ -119,6 +120,14 @@ void Day9()
     var heightMapSensor = serviceProvider.GetRequiredService<HeightMapSensor>();
     heightMapSensor.SumLowPointRiskLevels(data);
     heightMapSensor.MultiplyThreeLargestBasins(data);
+}
+
+void Day10()
+{
+    var repository = serviceProvider.GetRequiredService<IRawDataService>();
+    var data = repository.ParseRawData(Data.RawNavigationSubsystemSyntaxData);
+    var sytaxChecker = serviceProvider.GetRequiredService<SyntaxChecker>();
+    sytaxChecker.GetSyntaxErrorScore(data);
 }
 
 void Day11()
