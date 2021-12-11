@@ -28,6 +28,28 @@ public class EnergyMonitor
         return answer;
     }
 
+    public int GetSynchronizedFlash(int[][] grid)
+    {
+        _flashes = 0;
+        int answer;
+        var i = 0;
+        while (true)
+        {
+            i++;
+            grid = Step(grid);
+            if (!CheckSyncronized(grid)) continue;
+            answer = i;
+            break;
+        }
+        _logger.LogCritical("What is the first step during which all octopuses flash? Answer: {Answer}", answer);
+        return answer;
+    }
+
+    private static bool CheckSyncronized(int[][] grid)
+    {
+        return grid.All(row => row.All(item => item == 0));
+    }
+
     public int[][] Step(int[][] initialGrid)
     {
         // Increment

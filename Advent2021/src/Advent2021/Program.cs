@@ -124,7 +124,7 @@ void Day9()
 void Day11()
 {
     var repository = serviceProvider.GetRequiredService<IOctopusEnergyRepository>();
-    var data = repository.ParseGrid(Advent2021.Data.OctopusEnergy.Data.RawOctopusEnergyData);
     var energyMonitor = serviceProvider.GetRequiredService<EnergyMonitor>();
-    energyMonitor.GetTotalFlashes(data, 100);
+    energyMonitor.GetTotalFlashes(repository.ParseGrid(Advent2021.Data.OctopusEnergy.Data.RawOctopusEnergyData), 100);
+    energyMonitor.GetSynchronizedFlash(repository.ParseGrid(Advent2021.Data.OctopusEnergy.Data.RawOctopusEnergyData));
 }

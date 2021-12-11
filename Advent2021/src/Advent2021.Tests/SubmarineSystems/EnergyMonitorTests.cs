@@ -77,4 +77,14 @@ public class EnergyMonitorTests
 
         actual.Should().Be(expected);
     }
+
+    [Fact]
+    public void GetSynchronizedFlash_Gets_Step()
+    {
+        var subject = new EnergyMonitor(_logger);
+
+        var actual = subject.GetSynchronizedFlash(FakeGrid);
+
+        actual.Should().Be(195);
+    }
 }
