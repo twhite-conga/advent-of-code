@@ -9,7 +9,7 @@ public class OctopusEnergyRepository : IOctopusEnergyRepository
         for (var i = 0; i < rowStrings.Length; i++)
         {
             var row = new int[10];
-            for (int j = 0; j < rowStrings[i].Length; j++)
+            for (var j = 0; j < rowStrings[i].Length; j++)
             {
                 row[j] = int.Parse(rowStrings[i][j].ToString());
             }

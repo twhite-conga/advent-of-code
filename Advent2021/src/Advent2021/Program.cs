@@ -3,6 +3,7 @@ using Advent2021.Data.HeighMap;
 using Advent2021.SubmarineSystems;
 using Microsoft.Extensions.DependencyInjection;
 using Advent2021.Data.LanternFish;
+using Advent2021.Data.OctopusEnergy;
 using Advent2021.Data.SensorFix;
 using Data = Advent2021.Data.Data;
 
@@ -19,6 +20,8 @@ Day6();
 Day7();
 Day8();
 Day9();
+
+Day11();
 
 ServiceProvider ConfigureServices()
 {
@@ -38,6 +41,8 @@ ServiceProvider ConfigureServices()
         .AddTransient<SensorFix>()
         .AddTransient<IHeightMapRepository, HeightMapRepository>()
         .AddTransient<HeightMapSensor>()
+        .AddTransient<IOctopusEnergyRepository, OctopusEnergyRepository>()
+        .AddTransient<EnergyMonitor>()
         .BuildServiceProvider();
 }
 
@@ -114,4 +119,11 @@ void Day9()
     var heightMapSensor = serviceProvider.GetRequiredService<HeightMapSensor>();
     heightMapSensor.SumLowPointRiskLevels(data);
     heightMapSensor.MultiplyThreeLargestBasins(data);
+}
+
+void Day11()
+{
+    var repository = serviceProvider.GetRequiredService<IOctopusEnergyRepository>();
+    var data = repository.ParseGrid(Advent2021.Data.OctopusEnergy.Data.RawOctopusEnergyData);
+    var energyMonitor = serviceProvider.GetRequiredService<EnergyMonitor>();
 }
