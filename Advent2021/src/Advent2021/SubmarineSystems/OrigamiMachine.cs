@@ -22,6 +22,42 @@ public class OrigamiMachine
         return answer;
     }
 
+    public int GetCodeAfterAllFolds(OrigamiInstruction instruction)
+    {
+        var foldedCoordinates = instruction.Coordinates;
+        foreach (var fold in instruction.Folds)
+        {
+            foldedCoordinates = Fold(fold, foldedCoordinates);
+        }
+
+        var answer = foldedCoordinates.Count;
+        _logger.LogCritical(
+            "What code do you use to activate the infrared thermal imaging camera system? Answer: {Answer}",
+            answer);
+        var minX = foldedCoordinates.Min(c => c.X);
+        var maxX = foldedCoordinates.Max(c => c.X) + 1;
+        var minY = foldedCoordinates.Min(c => c.Y);
+        var maxY = foldedCoordinates.Max(c => c.Y) + 1;
+        for (var i = minY; i < maxY; i++)
+        {
+            var line = "";
+            for (var j = minX; j < maxX; j++)
+            {
+                var mark = " ";
+                if (foldedCoordinates.Exists(c => c.X == j && c.Y == i))
+                {
+                    mark = "#";
+                }
+
+                line += mark;
+            }
+
+            Console.WriteLine(line);
+        }
+
+        return answer;
+    }
+
     private List<Coordinate> Fold(Fold fold, List<Coordinate> coordinates)
     {
         var foldedCoordinates = new List<Coordinate>();
@@ -31,7 +67,8 @@ public class OrigamiMachine
             {
                 if (coordinate.X > fold.Axis)
                 {
-                    var foldCoordinate = new Coordinate { X = fold.Axis - (coordinate.X - fold.Axis), Y = coordinate.Y };
+                    var foldCoordinate = new Coordinate
+                        { X = fold.Axis - (coordinate.X - fold.Axis), Y = coordinate.Y };
                     if (!foldedCoordinates.Exists(c => c.X == foldCoordinate.X && c.Y == foldCoordinate.Y))
                     {
                         foldedCoordinates.Add(foldCoordinate);
@@ -49,7 +86,8 @@ public class OrigamiMachine
             {
                 if (coordinate.Y > fold.Axis)
                 {
-                    var foldCoordinate = new Coordinate { X = coordinate.X, Y = fold.Axis - (coordinate.Y - fold.Axis) };
+                    var foldCoordinate = new Coordinate
+                        { X = coordinate.X, Y = fold.Axis - (coordinate.Y - fold.Axis) };
                     if (!foldedCoordinates.Exists(c => c.X == foldCoordinate.X && c.Y == foldCoordinate.Y))
                     {
                         foldedCoordinates.Add(foldCoordinate);

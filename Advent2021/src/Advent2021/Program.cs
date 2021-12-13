@@ -159,4 +159,6 @@ void Day13()
     var origamiMachine = serviceProvider.GetRequiredService<OrigamiMachine>();
     origamiMachine.GetVisibleDotsAfterFirstFold(
         repository.ParseInstructions(Advent2021.Data.Origami.Data.RawOrigamiInstructions));
+    origamiMachine.GetCodeAfterAllFolds(
+        repository.ParseInstructions(Advent2021.Data.Origami.Data.RawOrigamiInstructions));
 }

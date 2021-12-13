@@ -26,4 +26,14 @@ public class OrigamiMachineTests
 
         actual.Should().Be(17);
     }
+
+    [Fact]
+    public void GetCodeAfterAllFolds_Gets_Code()
+    {
+        var subject = new OrigamiMachine(_logger);
+
+        var actual = subject.GetCodeAfterAllFolds(FakeOrigamiInstruction);
+
+        actual.Should().Be(16);
+    }
 }
