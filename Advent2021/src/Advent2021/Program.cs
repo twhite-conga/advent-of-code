@@ -4,6 +4,7 @@ using Advent2021.SubmarineSystems;
 using Microsoft.Extensions.DependencyInjection;
 using Advent2021.Data.LanternFish;
 using Advent2021.Data.OctopusEnergy;
+using Advent2021.Data.Origami;
 using Advent2021.Data.SensorFix;
 using Data = Advent2021.Data.Data;
 
@@ -23,6 +24,7 @@ Day9();
 Day10();
 Day11();
 Day12();
+Day13();
 
 ServiceProvider ConfigureServices()
 {
@@ -46,6 +48,8 @@ ServiceProvider ConfigureServices()
         .AddTransient<EnergyMonitor>()
         .AddTransient<SyntaxChecker>()
         .AddTransient<CaveMapper>()
+        .AddTransient<IOrigamiRepository, OrigamiRepository>()
+        .AddTransient<OrigamiMachine>()
         .BuildServiceProvider();
 }
 
@@ -147,4 +151,12 @@ void Day12()
     var repository = serviceProvider.GetRequiredService<IRawDataService>();
     caveMapper.GetPathsThroughCave(repository.ParseRawData(Data.RawPathData));
     caveMapper.GetPathsThroughCaveSmallCavesTwice(repository.ParseRawData(Data.RawPathData));
+}
+
+void Day13()
+{
+    var repository = serviceProvider.GetRequiredService<IOrigamiRepository>();
+    var origamiMachine = serviceProvider.GetRequiredService<OrigamiMachine>();
+    origamiMachine.GetVisibleDotsAfterFirstFold(
+        repository.ParseInstructions(Advent2021.Data.Origami.Data.RawOrigamiInstructions));
 }

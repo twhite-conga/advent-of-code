@@ -23,7 +23,7 @@ public class OrigamiRepository : IOrigamiRepository
             Folds = rawFolds.Select(rawFold =>
             {
                 var foldArr = rawFold.Split(" ").Last().Split("=");
-                var fold = new Fold { Direction = foldArr.First(), Distance = int.Parse(foldArr.Last()) };
+                var fold = new Fold { Direction = foldArr.First(), Axis = int.Parse(foldArr.Last()) };
                 return fold;
             }).ToList()
         };

@@ -38,6 +38,6 @@ fold along x=5";
         actual.Coordinates.Last().X.Should().Be(9);
         actual.Coordinates.Last().Y.Should().Be(0);
         actual.Folds.Last().Direction.Should().Be(Fold.X);
-        actual.Folds.Last().Distance.Should().Be(5);
+        actual.Folds.Last().Axis.Should().Be(5);
     }
 }
