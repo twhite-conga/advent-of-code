@@ -22,6 +22,7 @@ Day8();
 Day9();
 Day10();
 Day11();
+Day12();
 
 ServiceProvider ConfigureServices()
 {
@@ -44,6 +45,7 @@ ServiceProvider ConfigureServices()
         .AddTransient<IOctopusEnergyRepository, OctopusEnergyRepository>()
         .AddTransient<EnergyMonitor>()
         .AddTransient<SyntaxChecker>()
+        .AddTransient<CaveMapper>()
         .BuildServiceProvider();
 }
 
@@ -137,4 +139,12 @@ void Day11()
     var energyMonitor = serviceProvider.GetRequiredService<EnergyMonitor>();
     energyMonitor.GetTotalFlashes(repository.ParseGrid(Advent2021.Data.OctopusEnergy.Data.RawOctopusEnergyData), 100);
     energyMonitor.GetSynchronizedFlash(repository.ParseGrid(Advent2021.Data.OctopusEnergy.Data.RawOctopusEnergyData));
+}
+
+void Day12()
+{
+    var caveMapper = serviceProvider.GetRequiredService<CaveMapper>();
+    var repository = serviceProvider.GetRequiredService<IRawDataService>();
+    caveMapper.GetPathsThroughCave(repository.ParseRawData(Data.RawPathData));
+    caveMapper.GetPathsThroughCaveSmallCavesTwice(repository.ParseRawData(Data.RawPathData));
 }
